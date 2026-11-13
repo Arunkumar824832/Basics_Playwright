@@ -1,4 +1,4 @@
-# JavaScript Interview Notes
+# JavaScript Interview Notes. from instructor
 
 Curated interview questions + answers from this curriculum.
 
@@ -8,7 +8,7 @@ Curated interview questions + answers from this curriculum.
 
 ### Q: Why declare object references with `const` instead of `let`/`var`?
 
-**Short answer:** A variable holds a *reference* to the object, not the object
+**Short answer:** A variable holds a _reference_ to the object, not the object
 itself. `const` locks the binding (which object the variable points to), **not**
 the object's contents. Since the reference almost never needs reassignment, `const`
 is the correct default.
@@ -17,40 +17,40 @@ is the correct default.
 
 ```js
 const obj1 = { a: 1, b: 2 };
-obj1.a = 99;          // OK — mutate existing property
-obj1.c = 3;           // OK — add property
-delete obj1.b;        // OK — remove property
-console.log(obj1);    // { a: 99, c: 3 }
+obj1.a = 99; // OK — mutate existing property
+obj1.c = 3; // OK — add property
+delete obj1.b; // OK — remove property
+console.log(obj1); // { a: 99, c: 3 }
 ```
 
 **`const` blocks only reassignment of the binding:**
 
 ```js
 const obj1 = { a: 1, b: 2 };
-obj1 = { x: 5 };      // ❌ TypeError: Assignment to constant variable.
+obj1 = { x: 5 }; // ❌ TypeError: Assignment to constant variable.
 ```
 
 **Why this is the preferred style:**
 
-| Reason | Explanation |
-|--------|-------------|
+| Reason                   | Explanation                                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------------------ |
 | Reference rarely changes | You mutate properties or spread into a new variable; the binding stays fixed for its whole life. |
-| Catches bugs | Accidental `obj1 = somethingElse` throws instead of silently overwriting. |
-| Clear intent | `const` signals to the reader that the binding is stable. |
-| Favors immutability | Encourages new objects via spread instead of reassignment. |
+| Catches bugs             | Accidental `obj1 = somethingElse` throws instead of silently overwriting.                        |
+| Clear intent             | `const` signals to the reader that the binding is stable.                                        |
+| Favors immutability      | Encourages new objects via spread instead of reassignment.                                       |
 
 **Need a changed copy? Spread into a new `const` — don't reassign:**
 
 ```js
 const obj1 = { a: 1, b: 2 };
-const obj2 = { ...obj1, c: 3 };   // new object, new const binding
+const obj2 = { ...obj1, c: 3 }; // new object, new const binding
 ```
 
-**When `let`/`var` *is* justified — the binding itself is reassigned:**
+**When `let`/`var` _is_ justified — the binding itself is reassigned:**
 
 ```js
 let current = { id: 1 };
-current = { id: 2 };   // points to a different object — let needed
+current = { id: 2 }; // points to a different object — let needed
 ```
 
 This is rare for plain object literals, so **default to `const`**.
@@ -60,6 +60,6 @@ This is rare for plain object literals, so **default to `const`**.
 
 ```js
 const frozen = Object.freeze({ a: 1 });
-frozen.a = 99;        // silently ignored (throws in strict mode)
-console.log(frozen);  // { a: 1 }
+frozen.a = 99; // silently ignored (throws in strict mode)
+console.log(frozen); // { a: 1 }
 ```
